@@ -1,0 +1,27 @@
+{
+  "name": "org.eclipse.help.web.spa",
+  "version": "0.0.0",
+  "authors": [
+    "Brian de Alwis <bsd@mt.ca>"
+  ],
+  "description": "A new Angular-Bootstrap-based Frontend for Eclipse Help",
+  "main": "index.html",
+  "keywords": [
+    "eclipse",
+    "help"
+  ],
+  "license": "EPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-bootstrap": "~1.0.0",
+    "bootstrap": "~3.3",
+    "underscore": "~1.8.3"
+  }
+}
