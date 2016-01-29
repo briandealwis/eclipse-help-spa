@@ -1,0 +1,40 @@
+/* CSS for Eclipse Help */
+html,body { height: 100%; }
+body { min-height: 100%; }
+
+#main-content {
+	margin: 40px;
+	/*max-width: 1400px;*/
+	position: relative;
+	height: 100%;
+}
+
+#help-main-content, #help-main-content .row {
+	height: 100%;
+}
+
+#help-nav {
+/*
+	position: fixed;
+	left: auto;
+	float:left;
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 256px;
+	height: 90%;
+	*/
+}
+
+#doc-container {
+	height: 100%;
+}
+
+#doc-container #doc-breadcrumb {
+	padding-bottom: 10px;
+}
+
+/* IFrames need explicit height and width */
+#doc-container #doc-content {
+	height: 100%;
+	width: 100%;
+}

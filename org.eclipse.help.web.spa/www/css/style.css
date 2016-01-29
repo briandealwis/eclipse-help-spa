@@ -1,33 +1,6 @@
-/* CSS for Eclipse Help */
-
-#main-content {
-	margin: 40px;
-	/*max-width: 1400px;*/
-	position: relative;
-}
-#help-nav {
-	position: fixed;
-	left: auto;
-	float:left;
-	overflow-x: hidden;
-	overflow-y: auto;
-	width: 256px;
-	height: 100%;
-}
-
-#doc-container {
-	/*float:left;*/
-	margin-left: 296px;
-	position: relative;
-}
-
-#doc-container #doc-breadcrumb {
-	padding-bottom: 10px;
-}
-
 #doc-container #doc-content {
+	border: solid 1px #eee;
 }
-
 
 #help-nav .tab-pane {
 	margin-left: 4px;

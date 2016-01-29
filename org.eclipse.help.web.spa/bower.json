@@ -19,9 +19,11 @@
     "test",
     "tests"
   ],
-  "devDependencies": {
+  "dependencies": {
+    "angular": "~1.4",
     "angular-bootstrap": "~1.0.0",
     "bootstrap": "~3.3",
-    "underscore": "~1.8.3"
+    "underscore": "~1.8.3",
+    "angular-bootstrap-grid-tree": "git://github.com/khan4019/tree-grid-directive"
   }
 }
