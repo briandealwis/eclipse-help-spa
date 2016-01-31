@@ -13,6 +13,20 @@ angular.module('org.eclipse.help.model', [])
 	function encode(x) {
 		return encodeURIComponent(x);
 	}
+
+	function strip(s, prefix) {
+		return s.indexOf(prefix) == 0 ? s.substring(prefix.length) : s;
+	}
+	
+	function elideParentReferences(path) {
+		// need to iterate as the regex doesn't re-start on the replaced content
+		// e.g., /a/../b/../c
+		var replaced;
+		while((replaced = path.replace(/\/\w+\/\.\.\//, '/')) != path) {
+			path = replaced;
+		}
+		return path;
+	}
 	
 	/**
 	 * Return the list of Help Topics/Guides
@@ -53,6 +67,7 @@ angular.module('org.eclipse.help.model', [])
 
 
 	var topicContentUrl = baseUrl + '/vs/service/nftopic';
+	var navContentUrl = baseUrl + '/vs/service/nav';
 	var tocfragmentUrl = baseUrl + '/vs/service/tocfragment';
 
 	return {
@@ -62,26 +77,40 @@ angular.module('org.eclipse.help.model', [])
 		 * Return a URL for obtaining the content of the Help document at the
 		 * provided path
 		 */
-		asDocumentUrl: function(path) {
-			return topicContentUrl + '/' + path;
+		asDocumentUrl: function(item) {
+			var path = decode(item.href || item);
+			path = elideParentReferences(path);
+			// URLs assume they're relative to .../XXX.jsp
+			if(path.indexOf('../topic/') == 0) {
+				return elideParentReferences(topicContentUrl + '/' + path);
+			} else if(path.indexOf('../nav/') == 0) {
+				return elideParentReferences(navContentUrl + '/' + path) + '?returnType=html';
+			} else {
+				return topicContentUrl + '/' + path;
+			}
+		},
+		
+		isLeaf: function(item) {
+			return item.image == 'topic';
+
 		},
 		
 		/** Return a Content Provider: each returns a promise */
 		getLabelProvider: function() {
 			return {
-				getLabelClasses: function getLabelClasses(object) {
-					if(object.image == 'toc_closed') {
+				getLabelClasses: function getLabelClasses(item) {
+					if(item.image == 'toc_closed') {
 						return ['glyphicon', 'glyphicon-book'];
-					} else if(object.image == 'container_topic') {
+					} else if(item.image == 'container_topic') {
 						return ['glyphicon', 'glyphicon-folder-open'];
-					} else if(object.image == 'container_obj') {
+					} else if(item.image == 'container_obj') {
 						return ['glyphicon', 'glyphicon-folder-close'];
-					} else /*if(object.image == 'topic')*/ {
+					} else /*if(item.image == 'topic')*/ {
 						return ['glyphicon', 'glyphicon-file'];
 					}
 				},
-				getLabel: function getLabel(object) {
-					return decode(object.title);
+				getLabel: function getLabel(item) {
+					return decode(item.title);
 				}
 			}
 		},

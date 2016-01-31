@@ -8,8 +8,10 @@
 
     <!-- <title></title> -->
 
-    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/angular-bootstrap-grid-tree/src/treeGrid.css">
     <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/layout.css"/>
     <link rel="stylesheet" href="css/layout.css"/>
     
     <link rel="stylesheet" href="css/style.css"/>
@@ -56,25 +58,34 @@
 			    <div class="container-fluid">
 				  <!-- FIXME: replace this with <tabset> -->
 				  <uib-tabset>
+				  
 				    <uib-tab heading="Contents">
 				      <uib-tab-heading>
 						<i class="glyphicon glyphicon-book"></i> Contents
-				      </uib-tab-heading>		     
-				      <tree content-provider="contented" label-provider="labeller"
-				      	selection="selectedItem"></tree>
+				      </uib-tab-heading>
+				      <tree-grid expand-level="1"
+				      	tree-data="toc"
+				      	col-defs="[]"
+				      	expand-on="titleDef"
+				      	on-select="expandItem(branch, 'select')"
+				      	on-click="showItem(branch, 'click')">
+				      </tree-grid>
 				    </uib-tab>
+				    
 				    <uib-tab heading="Index">
 				      <uib-tab-heading>
 						<i class="glyphicon glyphicon-hdd"></i> Index
 				      </uib-tab-heading>
 				      Yo here's the index
 				    </uib-tab>
+				    
 				    <uib-tab>
 				      <uib-tab-heading>
 						<i class="glyphicon glyphicon-search"></i> Search
 				      </uib-tab-heading>
 				      I've got an HTML heading, and a select callback. Pretty cool!
 				    </uib-tab>
+				    
 				  </uib-tabset>
 			    </div>
 				</nav> <!-- .help-nav -->
@@ -101,12 +112,12 @@
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="lib/underscore/underscore-min.js"></script>
+    <script src="lib/angular-bootstrap-grid-tree/src/tree-grid-directive.js"></script>
 
     <script src="js/app.js"></script>
     <script src="js/config.js"></script>
     <script src="js/model.js"></script>
     <script src="js/debugging.js"></script>
-    <script src="toctree/toctree.js"></script>
     <script src="bootstrap-ui/ui.js"></script>
 </body>
 </html>
