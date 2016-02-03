@@ -1,14 +1,5 @@
-#doc-container #doc-content {
+#help-content-document {
 	border: solid 1px #eee;
-}
-
-#help-nav .tab-pane {
-	margin-left: 4px;
-	margin-right: 4px;
-}
-#help-nav .tab-content {
-	border: solid 1px #eee;
-	background: #eee;
 }
 
 .nav-tabs > li > div {
