@@ -28,8 +28,8 @@ angular.module('org.eclipse.help',
 	function transform(item) {
 		return {
 			title: HelpAccess.getLabelProvider().getLabel(item),
-			expanded: !HelpAccess.isLeaf(item),
-			children: (HelpAccess.isLeaf(item) ? undefined : []),
+			expanded:false,
+			children: (HelpAccess.isLeaf(item) ? undefined : [{ title: 'loading...'}]),
 			item: item
 		};
 	}
@@ -60,6 +60,7 @@ angular.module('org.eclipse.help',
 	$scope.$watch('selectedHelpItem', function(item) {
 		// 'org.eclipse.platform.doc.isv/guide/ua_help_infocenter_preferences.htm';
 		var remoteUrl = HelpAccess.asDocumentUrl(item);
+		console.log("HELP SWITCH: " + remoteUrl);
 		$scope.topicUrl = $sce.trustAsResourceUrl(remoteUrl);
 		//	$http.get(remoteUrl).then(function(response) {
 		//		$scope.content = $sce.trustAsHtml(response.data);
