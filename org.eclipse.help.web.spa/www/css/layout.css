@@ -2,39 +2,36 @@
 html,body { height: 100%; }
 body { min-height: 100%; }
 
-#main-content {
-	margin: 40px;
-	/*max-width: 1400px;*/
+#help-container {
 	position: relative;
-	height: 100%;
 }
 
-#help-main-content, #help-main-content .row {
-	height: 100%;
+@media print {
 }
 
-#help-nav {
-/*
-	position: fixed;
-	left: auto;
-	float:left;
-	overflow-x: hidden;
-	overflow-y: auto;
-	width: 256px;
-	height: 90%;
-	*/
+#toc #block {
+	display:none;
 }
-
-#doc-container {
-	height: 100%;
-}
-
-#doc-container #doc-breadcrumb {
-	padding-bottom: 10px;
+@media screen and (min-width: 60em) {
+	.sidebar {
+		position: fixed;
+		left: auto;
+		float:left;
+		overflow-x: hidden;
+		overflow-y: auto;
+		width: 20.5em;
+	}
+	.main {
+		margin-left: 24em;
+		height: 100%;
+	}
+	#toc #block {
+		display:block;
+	}
 }
 
 /* IFrames need explicit height and width */
-#doc-container #doc-content {
+#help-content-document {
 	height: 100%;
 	width: 100%;
 }
