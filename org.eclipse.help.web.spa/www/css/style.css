@@ -2,6 +2,12 @@
 	border: solid 1px #eee;
 }
 
+/*
+input[type="search"] {
+  -webkit-appearance: searchfield !important;
+}
+*/
+
 .nav-tabs > li > div {
   margin-right: 2px;
   line-height: 1.42857143;

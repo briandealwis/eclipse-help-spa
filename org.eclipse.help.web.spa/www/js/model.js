@@ -3,8 +3,9 @@ angular.module('org.eclipse.help.model', [])
 .factory('HelpAccess', function($http, $q, baseUrl) {
 	
 	/**
-	 * The Eclipse Help tocfragment service encodes all strings and
-	 * identifiers with application/x-www-form-urlencoded percent-encoding */
+	 * The Eclipse Help services encode all strings and
+	 * identifiers from JSON with application/x-www-form-urlencoded
+	 * percent-encoding */
 	function decode(x) {
 		x = x.replace(/\+/g, '%20');
 		return decodeURIComponent(x);
@@ -28,6 +29,15 @@ angular.module('org.eclipse.help.model', [])
 		return path;
 	}
 	
+
+	/* Don't use /vs/service/ for topics and nav links as
+	 * internal links are relative and the services return 
+	 * XML and not HTML */ 
+	var topicContentUrl = baseUrl + '/nftopic';
+	var navContentUrl = baseUrl + '/nav';
+	var tocfragmentUrl = baseUrl + '/vs/service/tocfragment';
+	var searchUrl = baseUrl + '/vs/service/advancedsearch';
+
 	/**
 	 * Return the list of Help Topics/Guides
 	 * @returns a promise 
@@ -44,7 +54,7 @@ angular.module('org.eclipse.help.model', [])
 		var id = decodeURIComponent(object.id);
 		var split = id.split('\$');
 		var deetsParms = encode(split[0]) + (split.length > 1 ? '&path=' + encode(split[1]) : '');
-		return $http.get(baseUrl + '/tocfragment?returnType=json&toc=' + deetsParms)
+		return $http.get(tocfragmentUrl + '?returnType=json&toc=' + deetsParms)
 		.then(function(response) {
 			return response.data.items;
 		});
@@ -59,40 +69,103 @@ angular.module('org.eclipse.help.model', [])
 		var lastUnderscore = split[1].lastIndexOf('_');
 		var deetsParms = encode(split[0]) + (lastUnderscore >= 0 
 				? '&path=' + encode(split[1].substring(0, lastUnderscore)) : '');
-		return $http.get(baseUrl + '/tocfragment?returnType=json&toc=' + deetsParms)
+		return $http.get(tocfragmentUrl + '?returnType=json&toc=' + deetsParms)
 		.then(function(response) {
 			return response.data.items;
 		});
 	}
-
-
-	var topicContentUrl = baseUrl + '/vs/service/nftopic';
-	var navContentUrl = baseUrl + '/vs/service/nav';
-	var tocfragmentUrl = baseUrl + '/vs/service/tocfragment';
+	/**
+	 * Return a URL for obtaining the content of the Help document at the
+	 * provided path
+	 */
+	function asDocumentURL(item) {
+		var path = decode(item.href || item);
+		path = elideParentReferences(path);
+		if(path.indexOf('http') == 0) {
+			return path
+		}
+		// URLs assume they're relative to .../XXX.jsp
+		if(path.indexOf('../topic/') == 0) {
+			console.error("SHOULDN'T SEE THIS: " + path);
+			return elideParentReferences(topicContentUrl + '/' + path);
+		} else if(path.indexOf('../nav/') == 0) {
+			console.error("SHOULDN'T SEE THIS: " + path);
+			return elideParentReferences(navContentUrl + '/' + path) + '?returnType=html';
+		} else if(path.indexOf('/') == 0) {
+			return topicContentUrl + path;
+		} else {
+			return topicContentUrl + '/' + path;
+		}
+	}
 
 	return {
 		baseUrl: baseUrl,
-		
-		/**
-		 * Return a URL for obtaining the content of the Help document at the
-		 * provided path
-		 */
-		asDocumentUrl: function(item) {
-			var path = decode(item.href || item);
-			path = elideParentReferences(path);
-			// URLs assume they're relative to .../XXX.jsp
-			if(path.indexOf('../topic/') == 0) {
-				return elideParentReferences(topicContentUrl + '/' + path);
-			} else if(path.indexOf('../nav/') == 0) {
-				return elideParentReferences(navContentUrl + '/' + path) + '?returnType=html';
-			} else {
-				return topicContentUrl + '/' + path;
-			}
-		},
+		asDocumentUrl: asDocumentURL,
 		
 		isLeaf: function(item) {
 			return item.image == 'topic';
 
+		},
+		
+		search: {
+			query:  function query(searchText, maxHits) {
+				if(!maxHits) { maxHits = 50; }
+				var url = searchUrl + '?returnType=json';
+				url += '&searchWord=' + encode(searchText);
+				url += '&maxHits=' + maxHits;
+				return $q.when([
+					      {
+					         href:'%2Forg.eclipse.jdt.doc.user%2Freference%2Fref-export-runnable-jar.htm%3Fresultof%3D%2522%2552%2575%256e%256e%2561%2562%256c%2565%2522%2520%2522%2572%2575%256e%256e%2561%2562%256c%2522%2520',
+					         summary:'The+%5BOpens+the+Runnable+JAR+export+wizard%5D+Runnable+Jar+Export+wizard+allows+you+to+create+a+runnable+JAR+file.+Runnable+JAR+file+specification+Runnable+JAR+Specification+O...',
+					         label:'Runnable+JAR+File+Exporter',
+					         tagName:'hit',
+					         category:'Java+development+user+guide',
+					         categoryHref:'..%2Fnav%2F1',
+					         score:'1.0',
+					         id:'0'
+					      },
+					      {
+					         href:'%2Forg.eclipse.jdt.doc.user%2Ftasks%2Ftasks-37.htm%3Fresultof%3D%2522%2552%2575%256e%256e%2561%2562%256c%2565%2522%2520%2522%2572%2575%256e%256e%2561%2562%256c%2522%2520',
+					         summary:'To+create+a+new+runnable+JAR+file+in+the+workbench%3A+From+the+menu+bar%27s+File+menu%2C+select+Export.+Expand+the+Java+node+and+select+Runnable+JAR+file.+Click+Next.+In+the+%5BOpe...',
+					         label:'Creating+a+New+Runnable+JAR+File',
+					         tagName:'hit',
+					         category:'Java+development+user+guide',
+					         categoryHref:'..%2Fnav%2F1',
+					         score:'0.93612075',
+					         id:'1'
+					      },
+					      {
+					         href:'%2Forg.eclipse.platform.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fosgi%2Fservice%2Frunnable%2Fpackage-summary.html%3Fresultof%3D%2522%2552%2575%256e%256e%2561%2562%256c%2565%2522%2520%2522%2572%2575%256e%256e%2561%2562%256c%2522%2520',
+					         summary:'JavaScript+is+disabled+on+your+browser.+Skip+navigation+links+Overview+Package+Class+Use+Tree+Deprecated+Index+Help+Eclipse+Platform+Mars+%284.5%29+Prev+Package+Next+Package+Fr...',
+					         label:'org.eclipse.osgi.service.runnable+%28Eclipse+Platform+API+Specification%29',
+					         tagName:'hit',
+					         category:'Java+development+user+guide',
+					         categoryHref:'..%2Fnav%2F1',
+					         score:'0.6234601',
+					         id:'2'
+					      }]);
+					      
+				return $http.get(url)
+				.then(function(response) {
+					return response.data.items;
+				});
+			},
+			asDocumentUrl: function(searchResult) {
+				return asDocumentURL(searchResult.href);
+			},
+			getLabelProvider: function() {
+				return {
+					getLabel: function getLabel(searchResult) {
+						return decode(searchResult.label);
+					},
+					getSummary: function getSummary(searchResult) {
+						return decode(searchResult.summary);
+					},
+					getCategory: function getCategory(searchResult) {
+						return decode(searchResult.category);
+					}
+				}
+			}
 		},
 		
 		/** Return a Content Provider: each returns a promise */
