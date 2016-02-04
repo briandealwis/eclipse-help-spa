@@ -1,42 +1,49 @@
 /* CSS for Eclipse Help */
+
+/*
+ * Use flex model to get header, body, footer appropriately set up
+ * http://stackoverflow.com/a/30875071/600339 
+ */
 html,body { height: 100%; }
 body { min-height: 100%; }
+body {
+  display: flex;
+  flex-direction: column;
+}
+header { min-height: 3em; }
+footer { min-height: 2em; }
+/* apply to all contents of #main to resize the iframe to max */
+#help-container, #help-container #main, #help-container #main * {
+    display: flex; 
+    flex-direction: column;
+	flex: 1 1 auto;
+}
 
 #help-container {
 	position: relative;
 }
 
-@media print {
-}
+/*.sidebar { display:none; }*/
+@media screen and (max-width: 768px) {
+	.sidebar { 
+		max-height: 200px;
+		overflow: auto; 
+	}
+} 
 
-#toc #block {
-	display:none;
-}
-@media screen and (min-width: 60em) {
+@media screen and (min-width: 768px) {
+	#help-container {
+		flex-direction: row;
+		align-items: stretch;
+	}
 	.sidebar {
-		position: fixed;
-		left: auto;
-		float:left;
+		display:flex;
 		overflow-x: hidden;
 		overflow-y: auto;
-		width: 20.5em;
+		flex: 1 1 18em;
+		margin-right: 2em;
 	}
 	.main {
-		margin-left: 24em;
-		height: 100%;
+		flex: 10 1 auto !important;
 	}
-	#toc #block {
-		display:block;
-	}
-}
-
-/* IFrames need explicit height and width */
-#help-content-document {
-	height: 100%;
-	width: 100%;
-}
-
-#footer {
-	position: absolute;
-	bottom: 0;
 }

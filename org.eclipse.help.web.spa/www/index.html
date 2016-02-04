@@ -54,7 +54,7 @@
 		</nav>
 	</header>
 
-	<div id='help-container' class="container help-container" role="main"
+	<div id='help-container' class="help-container" role="main"
 		ng-controller='MainController'>
 		<nav id='toc' class="sidebar navbar navbar-default hidden-print"
 				role="navigation">
@@ -80,7 +80,7 @@
 			</uib-tabset>
 			</div>
 		</nav>
-		<main id="content" class="main" role="main"
+		<main id="main" class="main" role="main"
 			ng-controller="DocumentController">
 			<div id="help-content-container" >
 				<!--
@@ -91,13 +91,13 @@
 					(2) what happens to images?
 		  		<div ng-bind-html='content'></div>
 			  	-->
-				<iframe id="help-content-document" ng-src="{{topicUrl}}"
-					style='height: 80vh'></iframe>
+				<iframe id="help-content-document" ng-src="{{topicUrl}}"></iframe>
 			</div>
 		</main>
 	</div>
 
-	<footer id="footer"></footer>
+	<footer id="footer">
+	</footer>
 	
 	
 	<script src="lib/jquery/dist/jquery.min.js"></script>

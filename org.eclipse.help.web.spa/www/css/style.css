@@ -1,3 +1,7 @@
+#help-container {
+	padding: 1em;
+}
+
 #help-content-document {
 	border: solid 1px #eee;
 }
