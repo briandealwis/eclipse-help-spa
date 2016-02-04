@@ -14,16 +14,13 @@ angular.module('org.eclipse.help.widgets', ['org.eclipse.help.model'])
 			$scope.getSummary = labeller.getSummary;
 			$scope.getCategory = labeller.getCategory;
     	},
-        template: "<div>"
-        		+ '<div ng-hide="results">Loading...</div>'
-        		+ '<div ng-show="results">'
+        template: '<div>'
         		+ '<p>{{results.length}} Results</p>'
                 + '<ul class="search-results">'
                 + '<li ng-repeat="result in results" ng-click="select({result:result})">'
                 + '<span class="search-title">{{getLabel(result)}}</span>'
                 + '</li>'
                 + '</ul>'
-                + '</div>'
                 + '</div>'
                 //+ '<span class="search-summary">{{getSummary(result)}}</span>'
                 //+ '<span class="search-category">{{getCategory(result)}}</span>'

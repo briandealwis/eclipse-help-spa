@@ -33,7 +33,7 @@ angular.module('org.eclipse.help.model', [])
 	/* Don't use /vs/service/ for topics and nav links as
 	 * internal links are relative and the services return 
 	 * XML and not HTML */ 
-	var topicContentUrl = baseUrl + '/nftopic';
+	var topicContentUrl = baseUrl + '/vs/service/nftopic';
 	var navContentUrl = baseUrl + '/nav';
 	var tocfragmentUrl = baseUrl + '/vs/service/tocfragment';
 	var searchUrl = baseUrl + '/vs/service/advancedsearch';
@@ -84,12 +84,9 @@ angular.module('org.eclipse.help.model', [])
 		if(path.indexOf('http') == 0) {
 			return path
 		}
-		// URLs assume they're relative to .../XXX.jsp
 		if(path.indexOf('../topic/') == 0) {
-			console.error("SHOULDN'T SEE THIS: " + path);
 			return elideParentReferences(topicContentUrl + '/' + path);
 		} else if(path.indexOf('../nav/') == 0) {
-			console.error("SHOULDN'T SEE THIS: " + path);
 			return elideParentReferences(navContentUrl + '/' + path) + '?returnType=html';
 		} else if(path.indexOf('/') == 0) {
 			return topicContentUrl + path;

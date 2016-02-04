@@ -42,6 +42,7 @@ angular.module('org.eclipse.help',
 	};
 	$scope.toc = {};
 	$scope.selectedHelpItem = 'org.eclipse.platform.doc.isv/guide/ua_help_infocenter_preferences.htm';
+	$scope.searchInProgress = false;
 	$scope.searchToBeShown = false;
 
 	$scope.showItem = function(branch) {
@@ -57,11 +58,16 @@ angular.module('org.eclipse.help',
 	});
 
 	$rootScope.quickSearch = function(searchText) {
-		$scope.searchToBeShown = true;
+		$scope.searchInProgress = true;
 		$scope.searchResults = null;
+		$scope.searchToBeShown = true;
 		return HelpAccess.search.query(searchText).then(function(results) {
-			$scope.searchToBeShown = true;
+			$scope.searchInProgress = false;
 			$scope.searchResults = results;
+			$scope.searchToBeShown = true;
+		}, function(err) {
+			$scope.searchInProgress = false;
+			alert('An error occurred when searching: ' + JSON.stringify(err));
 		});
 	}
 	$scope.showSearchResult = function(result) {
@@ -74,15 +80,17 @@ angular.module('org.eclipse.help',
 	$scope.searchText = null;
 })
 
-.controller('DocumentController', function($scope, HelpAccess, $sce) {
+.controller('DocumentController', function($scope, HelpAccess, $sce, $http) {
 	$scope.$watch('selectedHelpItem', function(item) {
 		// 'org.eclipse.platform.doc.isv/guide/ua_help_infocenter_preferences.htm';
 		var remoteUrl = HelpAccess.asDocumentUrl(item);
 		console.log("HELP SWITCH: " + remoteUrl);
 		$scope.topicUrl = $sce.trustAsResourceUrl(remoteUrl);
-		//	$http.get(remoteUrl).then(function(response) {
-		//		$scope.content = $sce.trustAsHtml(response.data);
-		//	});
+//		$http.get(remoteUrl).then(function(response) {
+//			$scope.content = $sce.trustAsHtml(response.data);
+//		}, function(err) {
+//			$scope.content = err;
+//		});
 	});
 })
 
