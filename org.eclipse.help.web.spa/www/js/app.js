@@ -25,7 +25,7 @@ angular.module('org.eclipse.help',
 // can use _ in expressions (http://stackoverflow.com/a/23984685)
 .constant('_', window._)
 
-.controller('MainController', function($scope, $rootScope, HelpAccess) {
+.controller('MainController', function($scope, $location, $rootScope, HelpAccess) {
 	function transform(item) {
 		return {
 			title: HelpAccess.getLabelProvider().getLabel(item),
@@ -36,12 +36,13 @@ angular.module('org.eclipse.help',
 	}
 	$scope.titleDef = {
 			field: 'title',
-			displayName: 'Description',
+			displayName: 'Contents',
 			filterable: true,
 			sortable: false
 	};
 	$scope.toc = {};
-	$scope.selectedHelpItem = 'org.eclipse.platform.doc.isv/guide/ua_help_infocenter_preferences.htm';
+	// FIXME: take from configuration
+	$scope.selectedHelpItem =  'org.eclipse.platform.doc.isv/guide/ua_help_infocenter_preferences.htm';
 	$scope.searchInProgress = false;
 	$scope.searchToBeShown = false;
 
@@ -74,6 +75,14 @@ angular.module('org.eclipse.help',
 		// ugh, this is starting to get ugly
 		$scope.selectedHelpItem = HelpAccess.search.asDocumentUrl(result);
 	};
+	
+	$rootScope.$on('$locationChangeSuccess', function(e, newUrl, oldUrl) {
+		var newTopic = $location.search().topic;
+		if(newTopic) {
+			console.log("[LOCATION] showing topic " + newTopic);
+			$scope.selectedHelpItem = newTopic; 
+		}
+	});
 })
 
 .controller('SearchController', function($scope, HelpAccess, $sce) {

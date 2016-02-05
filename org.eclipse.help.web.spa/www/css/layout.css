@@ -23,10 +23,9 @@ footer { min-height: 2em; }
 	position: relative;
 }
 
-/*.sidebar { display:none; }*/
 @media screen and (max-width: 768px) {
 	.sidebar { 
-		max-height: 200px;
+		height: 250px;
 		overflow: auto; 
 	}
 } 
