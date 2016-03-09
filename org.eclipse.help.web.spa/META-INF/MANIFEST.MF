@@ -1,6 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse Help Web Client
-Bundle-SymbolicName: org.eclipse.help.web.spa
+Bundle-SymbolicName: org.eclipse.help.web.spa;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Eclipse.org
+Require-Bundle: org.eclipse.help.webapp
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Import-Package: javax.servlet;version="3.1.0",
+ javax.servlet.http;version="3.1.0",
+ javax.servlet.jsp;version="2.2.0",
+ javax.servlet.jsp.el;version="2.2.0"
+Export-Package: org.eclipse.help.web.spa

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.pde.ui.RuntimeWorkbench">
+<setAttribute key="additional_plugins"/>
+<booleanAttribute key="append.args" value="true"/>
+<stringAttribute key="application" value="org.eclipse.help.base.helpApplication"/>
+<booleanAttribute key="askclear" value="true"/>
+<booleanAttribute key="automaticAdd" value="false"/>
+<booleanAttribute key="automaticValidate" value="false"/>
+<stringAttribute key="bootstrap" value=""/>
+<stringAttribute key="checked" value="[NONE]"/>
+<booleanAttribute key="clearConfig" value="true"/>
+<booleanAttribute key="clearws" value="false"/>
+<booleanAttribute key="clearwslog" value="false"/>
+<stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/Help UA"/>
+<booleanAttribute key="default" value="false"/>
+<stringAttribute key="featureDefaultLocation" value="workspace"/>
+<stringAttribute key="featurePluginResolution" value="workspace"/>
+<booleanAttribute key="includeOptional" value="false"/>
+<stringAttribute key="location" value="${workspace_loc}/../runtime-HelpUA"/>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+</listAttribute>
+<booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="false"/>
+<stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog&#10;-console"/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xms256m -Xmx1024m -Xdock:icon=../Resources/Eclipse.icns&#10;-Dlog4j.configuration=/Users/bsd/Manumitting/Projects/EclipseFoundation/HelpModernization/Help_SPA/log4j.propertie&#10;-Dserver_port=8080&#10;-Dorg.eclipse.equinox.http.jetty.autostart=false"/>
+<stringAttribute key="pde.version" value="3.3"/>
+<stringAttribute key="product" value="org.eclipse.sdk.ide"/>
+<setAttribute key="selected_features">
+<setEntry value="org.eclipse.help:default"/>
+</setAttribute>
+<stringAttribute key="selected_target_plugins" value="com.ibm.icu@default:default,javax.el@default:default,javax.inject@default:default,javax.servlet.jsp@default:default,javax.servlet@default:default,javax.xml@default:default,org.apache.commons.jxpath@default:default,org.apache.felix.gogo.command@default:default,org.apache.felix.gogo.runtime@default:default,org.apache.felix.gogo.shell@default:default,org.apache.jasper.glassfish@default:default,org.apache.lucene.analysis@default:default,org.apache.lucene.core@default:default,org.eclipse.core.net@default:default,org.eclipse.core.variables@default:default,org.eclipse.emf.common@default:default,org.eclipse.emf.doc@default:default,org.eclipse.emf.ecore.change@default:default,org.eclipse.emf.ecore.xmi@default:default,org.eclipse.emf.ecore@default:default,org.eclipse.equinox.app@default:default,org.eclipse.equinox.common@2:true,org.eclipse.equinox.console@default:default,org.eclipse.equinox.ds@1:true,org.eclipse.equinox.event@default:default,org.eclipse.equinox.http.jetty@default:default,org.eclipse.equinox.http.registry@default:default,org.eclipse.equinox.http.servlet@default:default,org.eclipse.equinox.jsp.jasper.registry@default:default,org.eclipse.equinox.jsp.jasper@default:default,org.eclipse.equinox.preferences@default:default,org.eclipse.equinox.registry@default:default,org.eclipse.equinox.security.macosx@default:false,org.eclipse.equinox.security@default:default,org.eclipse.equinox.util@default:default,org.eclipse.jdt.doc.isv@default:default,org.eclipse.jdt.doc.user@default:default,org.eclipse.jetty.http@default:default,org.eclipse.jetty.io@default:default,org.eclipse.jetty.security@default:default,org.eclipse.jetty.server@default:default,org.eclipse.jetty.servlet@default:default,org.eclipse.jetty.util@default:default,org.eclipse.osgi.compatibility.state@default:false,org.eclipse.osgi.services@default:default,org.eclipse.osgi@-1:true,org.eclipse.pde.doc.user@default:default,org.eclipse.platform.doc.isv@default:default,org.eclipse.platform.doc.user@default:default,org.hamcrest.core@default:default,org.junit@default:default,org.w3c.css.sac@default:default,org.w3c.dom.events@default:default,org.w3c.dom.smil@default:default,org.w3c.dom.svg@default:default"/>
+<stringAttribute key="selected_workspace_plugins" value="org.eclipse.core.contenttype@default:default,org.eclipse.core.expressions@default:default,org.eclipse.core.jobs@default:default,org.eclipse.core.runtime@default:true,org.eclipse.help.base@default:default,org.eclipse.help.web.spa.bootstrap@default:default,org.eclipse.help.web.spa@default:true,org.eclipse.help.webapp@default:true,org.eclipse.help@default:default"/>
+<booleanAttribute key="show_selected_only" value="false"/>
+<stringAttribute key="templateConfig" value="${target_home}/configuration/config.ini"/>
+<booleanAttribute key="tracing" value="false"/>
+<booleanAttribute key="useCustomFeatures" value="false"/>
+<booleanAttribute key="useDefaultConfig" value="true"/>
+<booleanAttribute key="useDefaultConfigArea" value="true"/>
+<booleanAttribute key="useProduct" value="false"/>
+</launchConfiguration>

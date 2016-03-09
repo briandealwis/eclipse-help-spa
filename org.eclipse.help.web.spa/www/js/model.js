@@ -33,8 +33,8 @@ angular.module('org.eclipse.help.model', [])
 	/* Don't use /vs/service/ for topics and nav links as
 	 * internal links are relative and the services return 
 	 * XML and not HTML */ 
-	var topicContentUrl = baseUrl + '/vs/service/nftopic';
-	var navContentUrl = baseUrl + '/nav';
+	var topicContentUrl = baseUrl + '/embed/topic';
+	var navContentUrl = baseUrl + '/embed/nav';
 	var tocfragmentUrl = baseUrl + '/vs/service/tocfragment';
 	var searchUrl = baseUrl + '/vs/service/advancedsearch';
 
@@ -46,7 +46,7 @@ angular.module('org.eclipse.help.model', [])
 		return $http.get(tocfragmentUrl + '?returnType=json')
 		.then(function(response) {
 			return response.data.items;
-		});
+		}, function err(err) { console.log("ERROR: " + err); });
 	}
 	
 	/** object is a JSON topic item */
@@ -57,7 +57,7 @@ angular.module('org.eclipse.help.model', [])
 		return $http.get(tocfragmentUrl + '?returnType=json&toc=' + deetsParms)
 		.then(function(response) {
 			return response.data.items;
-		});
+		}, function err(err) { console.log("ERROR: " + err); });
 	}
 	
 	/** object is a JSON topic item */
@@ -72,7 +72,7 @@ angular.module('org.eclipse.help.model', [])
 		return $http.get(tocfragmentUrl + '?returnType=json&toc=' + deetsParms)
 		.then(function(response) {
 			return response.data.items;
-		});
+		}, function err(err) { console.log("ERROR: " + err); });
 	}
 	/**
 	 * Return a URL for obtaining the content of the Help document at the
@@ -110,6 +110,14 @@ angular.module('org.eclipse.help.model', [])
 				var url = searchUrl + '?returnType=json';
 				url += '&searchWord=' + encode(searchText);
 				url += '&maxHits=' + maxHits;
+
+				return $http.get(url)
+				.then(function(response) {
+					return response.data.items;
+				});
+				/* TEST DATA
+				*/
+				
 				return $q.when([
 					      {
 					         href:'%2Forg.eclipse.jdt.doc.user%2Freference%2Fref-export-runnable-jar.htm%3Fresultof%3D%2522%2552%2575%256e%256e%2561%2562%256c%2565%2522%2520%2522%2572%2575%256e%256e%2561%2562%256c%2522%2520',
@@ -141,11 +149,6 @@ angular.module('org.eclipse.help.model', [])
 					         score:'0.6234601',
 					         id:'2'
 					      }]);
-					      
-				return $http.get(url)
-				.then(function(response) {
-					return response.data.items;
-				});
 			},
 			asDocumentUrl: function(searchResult) {
 				return asDocumentURL(searchResult.href);
@@ -187,12 +190,14 @@ angular.module('org.eclipse.help.model', [])
 		
 		/** Return a Content Provider: each returns a promise */
 		getContentProvider: function() {
-//			return {
-//				roots: topics,
-//				children: children,
-//				hasChildren: function(parent) { return parent.image != 'topic'; },
-//				parent: parent
-//			};
+			return {
+				roots: topics,
+				children: children,
+				hasChildren: function(parent) { return parent.image != 'topic'; },
+				parent: parent
+			};
+			/* TEST DATA
+			*/
 			
 			var testRoots = [
 					      {

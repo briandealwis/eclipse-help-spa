@@ -38,12 +38,13 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><a class="=" href="#/welcome">Welcome</a></li>
 					</ul>
-					<div id="search" role="search">
+					<div id="nav-search" role="search">
 						<form class="navbar-form navbar-right" role="search"
 								name="searchForm" ng-controller="SearchController"
 								ng-submit="quickSearch(searchText)">
-							<div class="form-group">
-								<input type="search" ng-model="searchText" class="form-control" placeholder="Search">
+							<div class="input-group input-group-sm">
+							  <span class="input-group-addon" id="sizing-searchText"><i class="glyphicon glyphicon-search"></i></span>
+							  <input type="search" ng-model="searchText" class="form-control" placeholder="Search">
 							</div>
 						</form>
 					</div>
@@ -73,6 +74,16 @@
 			</uib-tab>
 			<uib-tab active="searchToBeShown">
 				<uib-tab-heading> <i class="glyphicon glyphicon-search"></i> Search </uib-tab-heading>
+				<div id="tab-search" role="search">
+					<form role="search"
+							name="searchForm" ng-controller="SearchController"
+							ng-submit="quickSearch(searchText)">
+						<div class="input-group input-group-sm">
+						  <span class="input-group-addon" id="sizing-searchText"><i class="glyphicon glyphicon-search"></i></span>
+						  <input type="search" ng-model="searchText" class="form-control" placeholder="Search">
+						</div>
+					</form>
+				</div>
 				<div ng-show='searchInProgress'>Loading...</div>
 				<search-results ng-show="!searchInProgress && searchResults"
 					results="searchResults" on-select="showSearchResult(result)"></search-results>

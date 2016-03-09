@@ -3,8 +3,6 @@ angular.module('org.eclipse.help').requires.push('org.eclipse.help.debugging');
 
 angular.module('org.eclipse.help.debugging', [])
 
-.constant('baseUrl', 'http://help.eclipse.org/mars')
-
 /**************************************\
  ** Dump UI router/view state changes
 \**************************************/
